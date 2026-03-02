@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024">
+  <title>JAL×UPSIDER×MIZUHO | 核心に、至る。</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+JP:wght@200;300;400;500&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    sup { font-size: 10px; }
+
+    /* ══ BRAND COLORS ══ */
+    :root {
+      --jal-red:    #C8102E;
+      --mhfg-navy:  #1B3A7A;   /* みずほ navy */
+      --mhfg-blue:  #2B5BA8;   /* みずほ blue */
+      --upsider:    #1A1A2E;   /* UPSIDER dark */
+      --gold:       #C8A84B;
+      --black:      #000;
+      --near-black: #080808;
+      --dark1:      #0f0f0f;
+      --dark2:      #181818;
+      --dark3:      #222;
+      --white:      #fff;
+      --off-white:  #f5f3f0;
+      --gray-text:  #ccc;
+      --dim:        #888;
+      --border-d:   #222;
+      --border-l:   #ddd;
+    }
+
+    /* ══ SCROLL ANIMATIONS ══ */
+    .fade { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade.in { opacity: 1; transform: none; }
+    .fade-d1 { transition-delay: 0.1s; }
+    .fade-d2 { transition-delay: 0.2s; }
+    .fade-d3 { transition-delay: 0.3s; }
+    .fade-d4 { transition-delay: 0.4s; }
+    .fade-d5 { transition-delay: 0.5s; }
+
+    /* ════════════════════════════════
+       HEADER
+    ════════════════════════════════ */
+    .site-header {
+      background: #090909;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .header-top {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border-bottom: 1px solid #141414;
+      font-size: 11px;
+      color: #666;
+    }
+    .header-top a, .header-top span { color: #666; padding: 0 8px; font-size: 10px; letter-spacing: 0.08em; }
+    .header-main {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .header-logos {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .logo-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 20px;
+      border-right: 1px solid #2a2a2a;
+      margin-right: 20px;
+    }
+    .logo-brand img { height: 28px; width: auto; }
+    .logo-brand-text { font-size: 11px; letter-spacing: 0.12em; color: #aaa; font-weight: 300; }
+    /* Three-logo row */
+    .triple-logos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #888;
+      font-weight: 300;
+    }
+    .triple-logos .x { color: #444; font-size: 10px; }
+    .triple-logo-jal { color: var(--jal-red); }
+    .triple-logo-upsider { color: #aaa; }
+    .triple-logo-mizuho { color: var(--mhfg-blue); }
+    .header-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 11px;
+    }
+    .header-nav-right a { color: #777; font-size: 11px; letter-spacing: 0.06em; }
+    .header-nav-right a:hover { color: #ccc; }
+    .btn-invitation {
+      background: var(--jal-red);
+      color: #fff;
+      padding: 8px 20px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      display: inline-block;
+    }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 560px;
+      background: var(--black);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    /* Video hero background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .hero-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        rgba(0,0,0,0.92) 0%,
+        rgba(0,0,0,0.80) 35%,
+        rgba(0,0,0,0.55) 60%,
+        rgba(0,0,0,0.75) 100%);
+    }
+    /* JAL red ribbon */
+    .hero-ribbon-red {
+      position: absolute;
+      right: 0;
+      top: -5%;
+      width: 60%;
+      height: 115%;
+      z-index: 1;
+      pointer-events: none;
+      background: conic-gradient(from 158deg at 72% 48%,
+        transparent 0deg,
+        transparent 16deg,
+        rgba(200,16,46,0.03) 22deg,
+        rgba(200,16,46,0.18) 32deg,
+        rgba(220,5,35,0.28) 40deg,
+        rgba(200,16,46,0.12) 48deg,
+        rgba(150,0,20,0.03) 56deg,
+        transparent 62deg,
+        transparent 360deg
+      );
+    }
+    /* Mizuho navy accent — subtle diagonal on left */
+    .hero-ribbon-navy {
+      position: absolute;
+      left: -10%;
+      top: 50%;
+      width: 40%;
+      height: 200%;
+      transform: translateY(-50%) rotate(-18deg);
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(27,58,122,0.06) 40%,
+        rgba(43,91,168,0.10) 55%,
+        rgba(27,58,122,0.04) 65%,
+        transparent 75%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 80px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      min-height: 560px;
+    }
+    .hero-text { flex: 1; }
+    /* Triple brand lock-up */
+    .hero-brand-lock {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .hero-brand-lock .brand-jal {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--jal-red);
+      font-weight: 300;
+    }
+    .hero-brand-lock .brand-x {
+      color: #333;
+      font-size: 10px;
+    }
+    .hero-brand-lock .brand-upsider {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #aaa;
+      font-weight: 300;
+    }
+    .hero-brand-lock .brand-mizuho {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--mhfg-blue);
+      font-weight: 300;
+    }
+    /* Main title */
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 92px;
+      font-weight: 300;
+      line-height: 0.92;
+      color: #fff;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+    .hero-title-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.25em;
+      margin-bottom: 40px;
+    }
+    .hero-tagline {
+      font-size: 13px;
+      color: #777;
+      letter-spacing: 0.12em;
+      margin-bottom: 40px;
+      font-weight: 300;
+      border-left: 2px solid var(--jal-red);
+      padding-left: 16px;
+      line-height: 2;
+    }
+    .hero-tagline strong { color: #bbb; font-weight: 300; }
+    .hero-cta-row { display: flex; gap: 16px; align-items: center; }
+    .btn-primary-hero {
+      background: var(--jal-red);
+      color: #fff;
+      padding: 14px 32px;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-outline-hero {
+      border: 1px solid #333;
+      color: #888;
+      padding: 13px 28px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      font-weight: 300;
+      display: inline-block;
+    }
+    .btn-outline-hero:hover { border-color: #666; color: #ccc; }
+
+    /* Card visuals */
+    .hero-card-area {
+      flex: 0 0 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-card-stack {
+      position: relative;
+      width: 340px;
+      height: 240px;
+      margin-bottom: 20px;
+    }
+    /* Card base */
+    .hcard {
+      position: absolute;
+      width: 260px;
+      height: 164px;
+      border-radius: 10px;
+    }
+    .hcard-black {
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0.07) 75%, rgba(255,255,255,0) 100%),
+        linear-gradient(145deg,
+          #020615 0%, #071040 15%, #0e1a5e 30%,
+          #0a1038 44%, #2a0108 56%, #460010 68%,
+          #580014 78%, #380008 90%, #150002 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 8px 30px rgba(60,0,8,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      top: 0; left: 0;
+      z-index: 2;
+      transform: rotate(-5deg);
+    }
+    .hcard-special {
+      background:
+        radial-gradient(ellipse at 25% 20%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 55%),
+        linear-gradient(145deg,
+          #020615 0%, #071040 15%, #0e1a5e 30%,
+          #0a1038 44%, #2a0108 56%, #460010 68%,
+          #580014 78%, #380008 90%, #150002 100%);
+      border: 1px solid rgba(200,16,46,0.35);
+      box-shadow:
+        0 20px 50px rgba(0,0,0,0.9),
+        0 8px 32px rgba(27,58,122,0.4),
+        0 4px 20px rgba(200,16,46,0.25);
+      top: 52px; left: 80px;
+      z-index: 1;
+      transform: rotate(4deg);
+    }
+    /* Card inner elements */
+    .hcard-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      padding: 14px 16px;
+    }
+    .hcard-chip {
+      position: absolute;
+      top: 42px; left: 16px;
+      width: 30px; height: 22px;
+      background: linear-gradient(135deg, #c8a040, #e8c860, #d0a840);
+      border-radius: 3px;
+    }
+    .hcard-logos-center {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .hcard-jal-mark {
+      width: 36px; height: 36px;
+    }
+    .hcard-triple-text {
+      font-size: 6px;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      white-space: nowrap;
+    }
+    .hcard-mc {
+      position: absolute;
+      bottom: 10px; right: 12px;
+      display: flex;
+    }
+    .mc1 { width: 18px; height: 18px; border-radius: 50%; background: rgba(235,0,27,0.75); }
+    .mc2 { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,165,0,0.75); margin-left: -7px; }
+    /* Navy card has blue accent instead */
+    .hcard-special .hcard-logos-center {
+    }
+    .hcard-three-logos {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hcard-three-logos span {
+      font-size: 5px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+    }
+    /* ════════════════════════════════
+       UNIFIED CORE CARD (standalone)
+    ════════════════════════════════ */
+    .core-card {
+      position: relative;
+      width: 340px;
+      height: 214px;
+      border-radius: 14px;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.17) 0%, rgba(255,255,255,0) 36%, rgba(255,255,255,0.07) 75%, rgba(255,255,255,0) 100%),
+        linear-gradient(145deg,
+          #020615 0%, #071040 15%, #0e1a5e 30%,
+          #0a1038 44%, #2a0108 56%, #460010 68%,
+          #580014 78%, #380008 90%, #150002 100%);
+      overflow: hidden;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.88),
+        0 0 0 1px rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+    }
+    .cc-shine {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 28% 18%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 50%),
+        radial-gradient(ellipse at 78% 80%, rgba(80,0,10,0.55) 0%, rgba(80,0,10,0) 48%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .core-card > * { position: relative; z-index: 2; }
+    .cc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .cc-chip {
+      width: 38px; height: 28px;
+      background: linear-gradient(135deg, #b87820 0%, #e8c84a 25%, #c8922a 55%, #f0d868 80%, #a86010 100%);
+      border-radius: 4px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+      position: relative;
+    }
+    .cc-chip::before {
+      content: '';
+      position: absolute; inset: 4px;
+      border: 1px solid rgba(150,100,0,0.5);
+      border-radius: 2px;
+    }
+    .cc-triple {
+      font-size: 7px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.45);
+      font-family: 'Noto Sans JP', sans-serif;
+      display: block;
+      text-align: right;
+    }
+    .cc-card-name-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.88);
+      font-weight: 300;
+      line-height: 1;
+    }
+    .cc-card-subname {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 9px;
+      letter-spacing: 0.38em;
+      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+      margin-top: 5px;
+    }
+    .cc-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+    .cc-holder-text {
+      font-size: 7px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.32);
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .cc-net { display: flex; }
+    .cc-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+    }
+    .cc-dot1 { background: rgba(200,16,46,0.9); margin-right: -7px; }
+    .cc-dot2 { background: rgba(255,90,30,0.65); }
+
+    /* Card labels */
+    .hero-card-label {
+      text-align: center;
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.06em;
+    }
+    .hero-card-label strong { display: block; color: #aaa; margin-bottom: 4px; font-weight: 400; }
+    .tag-invitation {
+      display: inline-block;
+      border: 1px solid var(--mhfg-blue);
+      color: var(--mhfg-blue);
+      font-size: 9px;
+      padding: 2px 8px;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
+    }
+    .annual-fee-display {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .annual-fee-display .fee-label { font-size: 10px; color: #555; letter-spacing: 0.12em; margin-bottom: 4px; }
+    .annual-fee-display .fee-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .annual-fee-display .fee-unit { font-size: 14px; }
+
+    /* ════════════════════════════════
+       ANCHOR NAV
+    ════════════════════════════════ */
+    .anav {
+      background: var(--off-white);
+      border-top: 2px solid #e0ddd8;
+      border-bottom: 1px solid #ddd;
+    }
+    .anav-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .anav-item {
+      display: block;
+      padding: 16px 20px 14px;
+      text-align: center;
+      border-right: 1px solid #ddd;
+      color: #111;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .anav-item:last-child { border-right: none; }
+    .anav-item:hover { background: #ebe8e2; }
+    .anav-item strong {
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      font-size: 13px; font-weight: 500; color: #111; margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+    .anav-arrow { color: var(--jal-red); font-size: 10px; }
+    .anav-item p { font-size: 11px; color: #888; line-height: 1.5; }
+
+    /* ════════════════════════════════
+       SECTION LABEL STYLE
+    ════════════════════════════════ */
+    .section-tag {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.45em;
+      color: #555;
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+    .section-tag.red { color: var(--jal-red); }
+    .section-tag.navy { color: var(--mhfg-blue); }
+    .section-h2 {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+    }
+    .section-h2.white { color: #fff; }
+    .section-h2.dark { color: #111; }
+    .section-sub {
+      font-size: 13px;
+      color: #888;
+      margin-top: 10px;
+      font-weight: 300;
+    }
+    .divider-line {
+      width: 40px; height: 1px;
+      margin: 20px auto;
+    }
+    .divider-red { background: var(--jal-red); }
+    .divider-navy { background: var(--mhfg-navy); }
+    .divider-gold { background: var(--gold); }
+
+    /* ════════════════════════════════
+       CONCEPT
+    ════════════════════════════════ */
+    .s-concept {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Three-color diagonal bars at left */
+    .concept-bars {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      display: flex;
+      flex-direction: column;
+    }
+    .concept-bars span:nth-child(1) { flex: 1; background: var(--jal-red); }
+    .concept-bars span:nth-child(2) { flex: 1; background: var(--mhfg-navy); }
+    .concept-bars span:nth-child(3) { flex: 1; background: #222; }
+    .concept-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px 80px 60px;
+      text-align: center;
+    }
+    .concept-inner .section-tag { text-align: center; }
+    .concept-body {
+      font-size: 15px;
+      color: #999;
+      line-height: 2.4;
+      font-weight: 300;
+      margin-top: 28px;
+    }
+    .concept-body strong { color: #ddd; font-weight: 300; }
+    .concept-body em { font-style: normal; color: var(--jal-red); }
+    /* Three company badges */
+    .concept-badges {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 56px;
+      margin-bottom: 0;
+    }
+    .badge-item {
+      text-align: center;
+    }
+    .badge-logo {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      font-weight: 300;
+    }
+    .badge-jal {
+      background: radial-gradient(circle, #1a0005 0%, #0d0003 100%);
+      border: 1px solid rgba(200,16,46,0.4);
+      box-shadow: 0 0 24px rgba(200,16,46,0.15);
+    }
+    .badge-upsider {
+      background: radial-gradient(circle, #0a0a14 0%, #050508 100%);
+      border: 1px solid rgba(180,180,220,0.2);
+    }
+    .badge-mizuho {
+      background: radial-gradient(circle, #050d1f 0%, #020810 100%);
+      border: 1px solid rgba(43,91,168,0.4);
+      box-shadow: 0 0 24px rgba(27,58,122,0.15);
+    }
+    .badge-logo img { width: 44px; height: 44px; }
+    .badge-logo-text { font-size: 18px; font-weight: 300; color: #ccc; }
+    .badge-name {
+      font-size: 12px;
+      color: #777;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .badge-role {
+      font-size: 11px;
+      color: #555;
+      line-height: 1.7;
+      max-width: 160px;
+      margin: 0 auto;
+    }
+    .badge-item:nth-child(1) .badge-name { color: rgba(200,16,46,0.8); }
+    .badge-item:nth-child(3) .badge-name { color: rgba(43,91,168,0.8); }
+
+    /* ════════════════════════════════
+       SECTION HEADERS (dark photo BG)
+    ════════════════════════════════ */
+    .s-section-hero {
+      position: relative;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .shero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .shero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+    .shero-ribbon {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(130deg,
+        transparent 35%,
+        rgba(200,16,46,0.08) 40%,
+        rgba(220,5,35,0.16) 47%,
+        rgba(200,16,46,0.06) 54%,
+        transparent 59%
+      );
+    }
+    .shero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+    }
+    .shero-content h2 {
+      font-size: 30px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.15em;
+      margin-bottom: 10px;
+    }
+    .shero-content p { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.08em; }
+
+    /* dark bg image fakes */
+    .bg-dark-lounge {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_travel_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-dark-lounge::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.52);
+    }
+    .bg-dark-blue {
+      background: linear-gradient(135deg,
+        #020810 0%, #050e20 20%, #0a1830 40%, #050e22 60%, #02080e 80%, #060e1a 100%);
+    }
+    .bg-dark-navy {
+      background: linear-gradient(135deg,
+        #040810 0%, #08102a 25%, #0e1a3a 45%, #081022 65%, #04080e 85%, #0a1225 100%);
+    }
+
+    /* ════════════════════════════════
+       GRID — JAL BENEFITS
+    ════════════════════════════════ */
+    .s-grid {
+      background: var(--near-black);
+    }
+    .grid-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .gi {
+      padding: 40px 32px;
+      border-right: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .gi.span-4 { grid-column: span 4; border-right: none; }
+    .gi.span-2 { grid-column: span 2; }
+    .gi.span-1 { grid-column: span 1; }
+    .gi:nth-child(4n) { border-right: none; }
+    .gi-h3 {
+      font-size: 20px;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gi-h3 .h-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      color: #666;
+      font-weight: 300;
+    }
+    .big-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .big-num-unit { font-size: 16px; color: #aaa; }
+    .big-num-sub { font-size: 11px; color: #666; margin-bottom: 8px; display: block; letter-spacing: 0.08em; }
+    .gi p { font-size: 13px; color: #777; line-height: 2; font-weight: 300; }
+    .gi-cols { display: flex; gap: 28px; }
+    .gi-col { flex: 1; }
+    .gi-card-img { margin-bottom: 14px; }
+    .gi-card-img img {
+      height: 80px;
+      width: auto;
+    }
+    .gi-sub { font-size: 12px; color: #888; margin-bottom: 2px; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+    .sb-red { background: rgba(200,16,46,0.12); border: 1px solid rgba(200,16,46,0.3); color: rgba(200,16,46,0.9); }
+    .sb-navy { background: rgba(27,58,122,0.15); border: 1px solid rgba(43,91,168,0.35); color: rgba(100,140,220,0.9); }
+    .sb-gold { background: rgba(200,168,75,0.1); border: 1px solid rgba(200,168,75,0.25); color: rgba(200,168,75,0.9); }
+
+    /* Grid with image side */
+    .gi.gi-imgside {
+      display: flex; gap: 32px; align-items: flex-start;
+    }
+    .gi-imgside-img { flex: 0 0 240px; }
+    .gi-imgside-img img { width: 100%; height: 180px; object-fit: cover; }
+
+    /* Accordion */
+    .accordion { margin-top: 14px; }
+    .acc-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--jal-red);
+      cursor: pointer;
+      letter-spacing: 0.06em;
+    }
+    .acc-arrow { font-size: 9px; }
+    .acc-body {
+      display: none;
+      font-size: 12px;
+      color: #666;
+      line-height: 2;
+      padding: 12px 0 0;
+    }
+    .acc-body h5 { color: #aaa; font-size: 12px; margin: 10px 0 4px; }
+    .acc-body ul { padding-left: 1.2em; }
+    .acc-body li { font-size: 11px; color: #666; }
+
+    /* ════════════════════════════════
+       PHOTO FEATURE SECTIONS
+    ════════════════════════════════ */
+    .s-photo {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .s-photo-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+    }
+    .s-photo:hover .s-photo-bg { transform: scale(1.025); }
+    .overlay-l {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right,
+        rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.12) 70%, transparent 100%);
+    }
+    .overlay-r {
+      position: absolute; inset: 0;
+      background: linear-gradient(to left,
+        rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.12) 70%, transparent 100%);
+    }
+    .photo-content {
+      position: relative; z-index: 3;
+      padding: 0 80px;
+      max-width: 500px;
+    }
+    .photo-content.right { margin-left: auto; text-align: right; }
+    .photo-tag {
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+    .photo-tag.red { color: rgba(200,16,46,0.8); }
+    .photo-tag.navy { color: rgba(100,140,220,0.8); }
+    .photo-tag.gold { color: rgba(200,168,75,0.8); }
+    .photo-h2 {
+      font-size: 24px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .photo-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      line-height: 2;
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .btn-photo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      padding: 10px 24px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-photo:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
+    /* Photo bg — real photos from JAL CDN */
+    .bg-travel {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_travel_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-dining {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_concierge_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-lifestyle {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_lifestyle_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-security {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_security_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-upsider-ai {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_dining_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-upsider-ai::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,8,30,0.55);
+    }
+    .bg-mizuho-wealth {
+      background-image: url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_security_rev.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-mizuho-wealth::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(2,5,18,0.5);
+    }
+
+    /* ════════════════════════════════
+       BENEFITS STRIP (small tiles)
+    ════════════════════════════════ */
+    .s-benefits-strip {
+      background: var(--dark1);
+      padding: 0;
+    }
+    .benefits-strip-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .bstrip-item {
+      padding: 32px 28px;
+      border-right: 1px solid #1e1e1e;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .bstrip-item:nth-child(3n) { border-right: none; }
+    .bstrip-item h4 {
+      font-size: 14px;
+      font-weight: 400;
+      color: #ddd;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+    .bstrip-item p { font-size: 12px; color: #666; line-height: 1.9; }
+    .bstrip-icon {
+      width: 32px; height: 32px;
+      margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      font-size: 16px;
+    }
+    .bstrip-icon.red { background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.2); }
+    .bstrip-icon.navy { background: rgba(27,58,122,0.15); border: 1px solid rgba(43,91,168,0.25); }
+    .bstrip-icon.gold { background: rgba(200,168,75,0.08); border: 1px solid rgba(200,168,75,0.18); }
+
+    /* ════════════════════════════════
+       CARD SPEC TABLE
+    ════════════════════════════════ */
+    .s-spec {
+      background: var(--off-white);
+      padding: 72px 40px;
+      color: #111;
+    }
+    .spec-inner { max-width: 900px; margin: 0 auto; }
+    .spec-inner .section-tag { text-align: center; }
+    .spec-inner .section-h2 { text-align: center; }
+    .spec-inner .divider-line { display: block; }
+    .spec-inner > .section-sub { text-align: center; margin-bottom: 48px; }
+    /* Card visual display */
+    .spec-card-display {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .spec-card-col { text-align: center; }
+    .spec-card-visual {
+      width: 220px;
+      margin: 0 auto 14px;
+    }
+    .spec-card-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35));
+    }
+    .spec-card-name { font-size: 13px; color: #333; font-weight: 400; }
+    .spec-card-sub { font-size: 11px; color: #999; margin-top: 4px; }
+    .spec-card-tag {
+      display: inline-block;
+      background: var(--jal-red);
+      color: #fff;
+      font-size: 9px;
+      padding: 2px 8px;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    table thead th {
+      background: #111;
+      color: #fff;
+      padding: 14px 20px;
+      text-align: center;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      font-size: 12px;
+    }
+    table thead th:first-child { text-align: left; background: #000; width: 32%; }
+    table tbody th {
+      text-align: left;
+      background: #ebe9e4;
+      padding: 13px 20px;
+      font-size: 12px;
+      font-weight: 400;
+      color: #444;
+      border-bottom: 1px solid #ddd;
+      vertical-align: top;
+    }
+    table tbody td {
+      text-align: center;
+      padding: 13px 20px;
+      border-bottom: 1px solid #ddd;
+      color: #333;
+      font-size: 13px;
+      vertical-align: top;
+      line-height: 1.8;
+    }
+    table tbody tr:nth-child(odd) td { background: #fff; }
+    table tbody tr:nth-child(even) td { background: #f2f0ec; }
+    table tbody tr:nth-child(even) th { background: #e4e2dc; }
+    .chk-red { color: var(--jal-red); font-size: 15px; }
+    .chk-navy { color: var(--mhfg-blue); font-size: 15px; }
+    .dash { color: #bbb; }
+    .highlight-cell { color: var(--jal-red); font-weight: 500; }
+    .spec-notes {
+      margin-top: 24px;
+      font-size: 11px;
+      color: #888;
+      line-height: 2;
+    }
+    .spec-notes li { list-style: none; padding-left: 1.5em; position: relative; margin-bottom: 4px; }
+    .spec-notes li::before { content: '※'; position: absolute; left: 0; }
+
+    /* ════════════════════════════════
+       INVITATION SECTION
+    ════════════════════════════════ */
+    .s-invitation {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+      padding: 96px 40px;
+      text-align: center;
+    }
+    .s-invitation::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 50% at 50% 50%,
+          rgba(27,58,122,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 50% 50%,
+          rgba(200,16,46,0.05) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .invitation-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+    .invitation-card-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    .inv-card {
+      width: 200px; height: 126px;
+      border-radius: 9px;
+    }
+    .inv-card-triple {
+      background: linear-gradient(135deg,
+        #050510 0%, #0e1530 20%, #1B3A7A 40%,
+        #1a2a5a 55%, #0a0f20 65%,
+        #0d0008 78%, #200010 90%);
+      border: 1px solid rgba(43,91,168,0.5);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.8), 0 4px 20px rgba(27,58,122,0.35);
+    }
+    .invitation-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+    .invitation-sub {
+      font-size: 13px;
+      color: #777;
+      line-height: 2.2;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .invitation-fee {
+      margin-bottom: 40px;
+    }
+    .invitation-fee-label { font-size: 11px; letter-spacing: 0.2em; color: #555; margin-bottom: 8px; }
+    .invitation-fee-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .invitation-fee-unit { font-size: 20px; color: #888; }
+    .invitation-fee-note { font-size: 11px; color: #444; margin-top: 8px; }
+    .btn-apply-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--jal-red);
+      color: #fff;
+      padding: 18px 48px;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .btn-inquiry {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(43,91,168,0.5);
+      color: rgba(100,140,220,0.8);
+      padding: 15px 36px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      font-weight: 300;
+      margin-left: 16px;
+    }
+    .btn-inquiry:hover { border-color: rgba(43,91,168,0.8); color: rgba(140,175,240,0.9); }
+    .invitation-note {
+      font-size: 11px;
+      color: #444;
+      line-height: 2;
+      margin-top: 24px;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    .site-footer {
+      background: #090909;
+      padding: 48px 40px 24px;
+      border-top: 1px solid #141414;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .footer-logo-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #555;
+      letter-spacing: 0.1em;
+      padding-right: 24px;
+      border-right: 1px solid #1a1a1a;
+    }
+    .footer-logo-item:last-child { border-right: none; }
+    .footer-logo-item img { height: 24px; width: auto; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #333;
+    }
+    .footer-bottom a { color: #333; margin-right: 16px; }
+    .footer-bottom a:hover { color: #666; }
+    /* Limited banner inside grid */
+    .gi-limited-banner {
+      grid-column: span 4;
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg,
+        #050510 0%, #0e1530 20%, #1B3A7A 38%,
+        #1a2a5a 50%, #0a0f20 62%,
+        #0d0008 75%, #200010 88%, #100005 100%);
+      border-top: 1px solid #1e1e1e;
+      border-bottom: none;
+    }
+    .gi-limited-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(130deg,
+        transparent 35%,
+        rgba(200,16,46,0.06) 40%,
+        rgba(200,16,46,0.12) 47%,
+        rgba(200,16,46,0.04) 53%,
+        transparent 58%
+      );
+    }
+    .limited-banner-inner {
+      position: relative; z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      padding: 48px 56px;
+      width: 100%;
+    }
+    .limited-card-img {
+      flex: 0 0 200px;
+    }
+    .limited-card-img .inv-card-triple {
+      width: 200px; height: 126px;
+    }
+    .limited-text h3 {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: rgba(100,140,220,0.7);
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    .limited-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .limited-text p {
+      font-size: 13px;
+      color: #888;
+      line-height: 2;
+      font-weight: 300;
+    }
+
+    /* ════════════════════════════════
+       ABSTRACT — 4つの果実
+    ════════════════════════════════ */
+    .s-abstract {
+      background: #060606;
+    }
+    .abstract-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 88px 80px 64px;
+      text-align: center;
+    }
+    .abstract-list {
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .abstract-row {
+      position: relative;
+      min-height: 340px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+      cursor: default;
+    }
+    .abstract-row::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: transparent;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    .abstract-row:hover::before { background: var(--jal-red); }
+    /* Photo background */
+    .ar-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+    }
+    .abstract-row:hover .ar-bg { transform: scale(1.04); }
+    /* Gradient overlay — dark left, lighter right to show photo */
+    .ar-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg,
+        rgba(0,0,0,0.93) 0%,
+        rgba(0,0,0,0.82) 38%,
+        rgba(0,0,0,0.52) 70%,
+        rgba(0,0,0,0.22) 100%);
+      transition: background 0.5s;
+    }
+    .abstract-row:hover .ar-overlay {
+      background: linear-gradient(105deg,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.74) 38%,
+        rgba(0,0,0,0.38) 70%,
+        rgba(0,0,0,0.08) 100%);
+    }
+    /* Text content layer */
+    .ar-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 80px 1fr 380px;
+      align-items: center;
+      gap: 0;
+      padding: 64px 80px;
+    }
+    .ar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.3em;
+    }
+    .ar-main { padding-right: 64px; }
+    .ar-badge {
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      font-weight: 300;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .ar-badge.red  { color: rgba(200,16,46,0.9); }
+    .ar-badge.navy { color: rgba(130,165,230,0.9); }
+    .ar-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
+    }
+    .ar-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.52);
+      line-height: 2.1;
+      font-weight: 300;
+      padding-left: 48px;
+      border-left: 1px solid rgba(255,255,255,0.12);
+    }
+    .ar-link {
+      display: block;
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--jal-red);
+      letter-spacing: 0.12em;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .abstract-row:hover .ar-link { opacity: 1; }
+
+    /* ════════════════════════════════
+       CONCRETE — 確定仕様 4パート
+    ════════════════════════════════ */
+    .s-concrete {}
+    .concrete-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .concrete-item.reverse .concrete-photo { order: 2; }
+    .concrete-item.reverse .concrete-text  { order: 1; }
+    .concrete-photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .concrete-text {
+      background: #060606;
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .concrete-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: #141414;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .concrete-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.6;
+      margin: 14px 0 28px;
+      letter-spacing: 0.04em;
+    }
+    .concrete-title span {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      letter-spacing: 0.06em;
+      margin-top: 6px;
+    }
+    .concrete-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .concrete-list li {
+      font-size: 13px;
+      color: #666;
+      line-height: 2;
+      font-weight: 300;
+      padding-left: 20px;
+      border-left: 2px solid #1c1c1c;
+    }
+    .concrete-list li strong {
+      color: #ccc;
+      display: block;
+      font-weight: 400;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="triple-logos">
+      <span class="triple-logo-jal">JAPAN AIRLINES</span>
+      <span class="x">×</span>
+      <span class="triple-logo-upsider">UPSIDER</span>
+      <span class="x">×</span>
+      <span class="triple-logo-mizuho">みずほフィナンシャルグループ</span>
+    </div>
+    <div>
+      <a href="#">Japan - 日本語</a>
+      <a href="#">ログイン</a>
+      <a href="#">サイト検索</a>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="header-logos">
+      <div class="logo-brand">
+        <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL">
+        <span class="logo-brand-text">JAPAN AIRLINES</span>
+      </div>
+      <div class="triple-logos" style="font-size:13px;letter-spacing:0.2em;">
+        <span class="triple-logo-upsider">UPSIDER</span>
+        <span class="x">×</span>
+        <span class="triple-logo-mizuho">みずほ</span>
+        <span style="color:#444;font-size:11px;letter-spacing:0.15em;margin-left:6px;">BUSINESS CARD</span>
+      </div>
+    </div>
+    <nav class="header-nav-right">
+      <a href="#anc-abstract">4つの果実</a>
+      <a href="#anc-concrete">確定仕様</a>
+      <a href="#anc-spec">カード詳細</a>
+      <a href="#anc-apply" class="btn-invitation">申し込む</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline>
+      <source src="https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-ribbon-red"></div>
+  <div class="hero-ribbon-navy"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-brand-lock fade">
+        <span class="brand-jal">JAL</span>
+        <span class="brand-x">×</span>
+        <span class="brand-upsider">UPSIDER</span>
+        <span class="brand-x">×</span>
+        <span class="brand-mizuho">みずほ</span>
+      </div>
+      <h1 class="hero-title fade fade-d1" style="font-size:48px;letter-spacing:0.1em;line-height:1.3;">
+        JAL×UPSIDER×MIZUHO
+      </h1>
+      <p class="hero-title-sub fade fade-d2" style="font-size:20px;letter-spacing:0.35em;">核心に、至る。</p>
+      <div class="hero-tagline fade fade-d3">
+        日本の空、挑戦の牙城、そして信頼の源流。<br>
+        JAL、UPSIDER、みずほ。<br>
+        <strong>三社の意志が、経営者のための「正解」を定義する。</strong>
+      </div>
+      <div class="hero-cta-row fade fade-d4">
+        <a href="#anc-apply" class="btn-primary-hero">
+          申し込む
+          <span style="font-size:12px;">↓</span>
+        </a>
+        <a href="#anc-spec" class="btn-outline-hero">カード詳細</a>
+      </div>
+    </div>
+
+    <div class="hero-card-area">
+      <div class="hero-card-stack fade fade-d2">
+        <!-- Standard black card -->
+        <div class="hcard hcard-black">
+          <div class="hcard-inner">
+            <div class="hcard-chip"></div>
+            <div class="hcard-logos-center">
+              <img class="hcard-jal-mark" src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL" style="width:32px;height:32px;filter:brightness(5);">
+              <span class="hcard-triple-text">JAL × UPSIDER × みずほ</span>
+            </div>
+            <div class="hcard-mc"><div class="mc1"></div><div class="mc2"></div></div>
+          </div>
+        </div>
+        <!-- Triple navy card -->
+        <div class="hcard hcard-special">
+          <div class="hcard-inner">
+            <div style="position:absolute;top:10px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;">
+              <div style="font-size:6px;letter-spacing:0.08em;color:rgba(255,255,255,0.35);">INVITATION</div>
+              <div style="font-size:7px;letter-spacing:0.1em;color:rgba(200,16,46,0.6);">JAL × UPSIDER × みずほ</div>
+            </div>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+              <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="" style="width:40px;height:40px;filter:brightness(0) invert(1) opacity(0.25);">
+            </div>
+            <div class="hcard-mc"><div class="mc1"></div><div class="mc2"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card-label fade fade-d3">
+        <strong>JAL×UPSIDER×MIZUHO</strong>
+        <span class="tag-invitation">審査制</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ANCHOR NAV
+══════════════════════════════════════ -->
+<nav class="anav">
+  <div class="anav-inner">
+    <a class="anav-item" href="#anc-abstract">
+      <strong>4つの果実 <span class="anav-arrow">↓</span></strong>
+      <p>経営の次元を変える<br>4つのベネフィット</p>
+    </a>
+    <a class="anav-item" href="#anc-concrete">
+      <strong>確定仕様 <span class="anav-arrow">↓</span></strong>
+      <p>与信・マイル・ステータス<br>AIの詳細スペック</p>
+    </a>
+    <a class="anav-item" href="#anc-spec">
+      <strong>カード詳細 <span class="anav-arrow">↓</span></strong>
+      <p>年会費・付帯サービス<br>招待条件一覧</p>
+    </a>
+    <a class="anav-item" href="#anc-apply">
+      <strong>申し込む <span class="anav-arrow">↓</span></strong>
+      <p>審査制<br>お申し込みフロー</p>
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     CONCEPT
+══════════════════════════════════════ -->
+<section class="s-concept">
+  <div class="concept-bars">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="concept-inner">
+    <span class="section-tag">CONCEPT</span>
+    <h2 class="section-h2 white fade">
+      三社が初めて手を組んだ。<br>
+      経営者のために。
+    </h2>
+    <div class="divider-line divider-red" style="display:block;"></div>
+    <p class="concept-body fade fade-d1">
+      日本航空が70年以上にわたり磨いてきた「最上の体験」。<br>
+      UPSIDERが法人カード市場に切り込んだ「限界なき与信」。<br>
+      みずほが超富裕層に提供してきた「資産の守り方と増やし方」。<br><br>
+      <strong>三社が初めて一枚のカードに結集した。</strong><br><br>
+      JALマイルが<em>1.5%</em>たまり、与信は<em>最大10億円</em>まで。<br>
+      入会時にJGC資格（1,500 LSP）が即時付与され、みずほコネクテッドサービスが標準内包される。<br>
+      旅でも、経営でも、資産でも。あらゆる場面で<strong>「格が違う」と感じさせる一枚。</strong>
+    </p>
+
+    <div class="concept-badges fade fade-d2">
+      <div class="badge-item">
+        <div class="badge-logo badge-jal">
+          <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL">
+        </div>
+        <div class="badge-name">JAPAN AIRLINES</div>
+        <div class="badge-role">マイル1.5%以上<br>JGC入会資格<br>FLY ON特典</div>
+      </div>
+      <div class="badge-item" style="display:flex;align-items:center;padding:0 20px;color:#333;font-size:28px;font-family:'Cormorant Garamond',serif;font-weight:300;">×</div>
+      <div class="badge-item">
+        <div class="badge-logo badge-upsider">
+          <span class="badge-logo-text" style="font-size:14px;letter-spacing:0.05em;">UP<br>SIDER</span>
+        </div>
+        <div class="badge-name">UPSIDER</div>
+        <div class="badge-role">与信最大10億円<br>AI自動購買<br>経費管理</div>
+      </div>
+      <div class="badge-item" style="display:flex;align-items:center;padding:0 20px;color:#333;font-size:28px;font-family:'Cormorant Garamond',serif;font-weight:300;">×</div>
+      <div class="badge-item">
+        <div class="badge-logo badge-mizuho">
+          <span class="badge-logo-text" style="color:rgba(100,140,220,0.8);">みずほ</span>
+        </div>
+        <div class="badge-name" style="color:rgba(43,91,168,0.8);">みずほFG</div>
+        <div class="badge-role">プライベートバンク<br>資産30億円以上<br>超富裕層ネットワーク</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABSTRACT — 4つの果実
+══════════════════════════════════════ -->
+<section class="s-abstract" id="anc-abstract">
+  <div class="abstract-header">
+    <span class="section-tag red">BENEFITS</span>
+    <h2 class="section-h2 white fade">経営の次元を変える、<br>4つの核心。</h2>
+    <div class="divider-line divider-red" style="display:block;margin:16px auto;"></div>
+  </div>
+  <div class="abstract-list">
+
+    <div class="abstract-row fade">
+      <div class="ar-bg" style="background-image:url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_security_rev.jpg');"></div>
+      <div class="ar-overlay"></div>
+      <div class="ar-content">
+        <div class="ar-num">01</div>
+        <div class="ar-main">
+          <div class="ar-badge red">WITH POWER</div>
+          <h3 class="ar-title">最大10億円の<br>与信枠</h3>
+          <a class="ar-link" href="#concrete-01">確定仕様を見る →</a>
+        </div>
+        <p class="ar-desc">既存カードの「枠」というボトルネックを破壊し、経営の機動力を解放する。広告費・仕入れ・外注費・納税、すべてをこの一枚に集約する。</p>
+      </div>
+    </div>
+
+    <div class="abstract-row fade fade-d1">
+      <div class="ar-bg" style="background-image:url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_travel_rev.jpg');"></div>
+      <div class="ar-overlay"></div>
+      <div class="ar-content">
+        <div class="ar-num">02</div>
+        <div class="ar-main">
+          <div class="ar-badge red">WITH ASSETS</div>
+          <h3 class="ar-title">LSP 3-Star獲得 ＆<br>マイル還元率1.5%</h3>
+          <a class="ar-link" href="#concrete-02">確定仕様を見る →</a>
+        </div>
+        <p class="ar-desc">入会時に1,500 LSPを即時付与。JGCへの数年がかりの道のりを一瞬で飛び越え、法人決済の規模をそのまま個人資産（マイル）へと転換する。</p>
+      </div>
+    </div>
+
+    <div class="abstract-row fade fade-d2">
+      <div class="ar-bg" style="background-image:url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_concierge_rev.jpg');"></div>
+      <div class="ar-overlay"></div>
+      <div class="ar-content">
+        <div class="ar-num">03</div>
+        <div class="ar-main">
+          <div class="ar-badge navy">WITH AI</div>
+          <h3 class="ar-title">AIによる出張の<br>完全自動予約（AGT）</h3>
+          <a class="ar-link" href="#concrete-03">確定仕様を見る →</a>
+        </div>
+        <p class="ar-desc">カレンダーから出張を検知し、最適なJAL便を自動予約・決済まで完了。秘書への指示もコンシェルジュへの依頼も不要。「指示」すら消えた世界へ。</p>
+      </div>
+    </div>
+
+    <div class="abstract-row fade fade-d3">
+      <div class="ar-bg" style="background-image:url('https://www.jal.co.jp/jp/ja/jmb/jal-luxury-card/img_sites/pic_cont03_dining_rev.jpg');"></div>
+      <div class="ar-overlay"></div>
+      <div class="ar-content">
+        <div class="ar-num">04</div>
+        <div class="ar-main">
+          <div class="ar-badge navy">WITH MIZUHO</div>
+          <h3 class="ar-title">みずほコネクテッド<br>サービス</h3>
+          <a class="ar-link" href="#concrete-04">確定仕様を見る →</a>
+        </div>
+        <p class="ar-desc">専属プライベートバンカーによるウェルスアドバイザーサービス。手数料優遇・金利優遇・一任運用・専用ラウンジ。銀行の深層にある特権が、標準装備になる。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONCRETE — 確定仕様
+══════════════════════════════════════ -->
+<section class="s-concrete" id="anc-concrete">
+
+  <!-- ① 最大10億円の与信枠 -->
+  <div class="concrete-item" id="concrete-01">
+    <div class="concrete-photo">
+      <div class="s-photo-bg bg-security" style="position:absolute;inset:0;"></div>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.42);"></div>
+    </div>
+    <div class="concrete-text fade">
+      <div class="concrete-num">01</div>
+      <div class="section-tag red">WITH POWER</div>
+      <h3 class="concrete-title">最大10億円の与信枠
+        <span>高額決済を、この一枚に集約する</span>
+      </h3>
+      <ul class="concrete-list">
+        <li>
+          <strong>高額決済をこの一枚に</strong>
+          UPSIDERのAI与信とみずほの信頼を融合。広告費や仕入れなど、これまでカードが止まっていた数億円単位の決済を、余裕を持って完結させます。
+        </li>
+        <li>
+          <strong>「銀行振込」の手間をゼロに</strong>
+          これまで振込でしか対応できなかった巨額の支払いをカードへ移行。キャッシュフローを最適化しながら、すべての支出をマイルへ転換します。
+        </li>
+        <li>
+          <strong>経営の機動力を止めない審査スピード</strong>
+          独自のロジックにより、事業成長に合わせて億単位の枠を即座に提供。増枠を待つ時間は、もう必要ありません。
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ② LSP 3-Star & マイル1.5% -->
+  <div class="concrete-item reverse" id="concrete-02">
+    <div class="concrete-photo">
+      <div class="s-photo-bg bg-travel" style="position:absolute;inset:0;"></div>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.38);"></div>
+    </div>
+    <div class="concrete-text fade">
+      <div class="concrete-num">02</div>
+      <div class="section-tag red">WITH ASSETS</div>
+      <h3 class="concrete-title">LSP 3-Star獲得 ＆ マイル還元率1.5%
+        <span>事業規模を、個人資産へと転換する</span>
+      </h3>
+      <ul class="concrete-list">
+        <li>
+          <strong>JGC入会資格を、即時付与</strong>
+          入会時に1,500 LSPを付与。数年を要する「飛行機修行」をすることなく、一生涯のJALグループ優待をその手に。
+        </li>
+        <li>
+          <strong>決済規模を活かす高還元</strong>
+          一律1.5%還元。年間6,667万円の決済でマイルによる還元額が年会費を相殺し、以降は使えば使うほど純利益を生む構造。
+        </li>
+        <li>
+          <strong>ステータスを加速させる特別レート</strong>
+          2,500マイル＝5 LSP。法人決済を回すだけで、既存カードを凌駕するスピードでさらなる上位ステータスへ昇格します。
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ③ AGT 完全自動予約 -->
+  <div class="concrete-item" id="concrete-03" style="min-height:900px;">
+    <div class="concrete-photo" style="background:#080808;overflow:hidden;">
+      <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;ja&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>UPSIDER 出張エージェント — 映像モック</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #080808;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* ---- Stage ---- */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ---- Caption ---- */
+.caption { text-align: center; }
+.step-label {
+  display: inline-block;
+  color: #444;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.caption-title {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.caption-sub {
+  color: #666;
+  font-size: 12px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* ---- Phone ---- */
+.phone-frame {
+  width: 375px;
+  height: 780px;
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px #1c1c1c,
+    0 0 0 5px #2d2d2d,
+    0 0 0 7px #111,
+    0 32px 80px rgba(0,0,0,0.7);
+  position: relative;
+  flex-shrink: 0;
+  background: #fff;
+}
+.notch {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 34px;
+  background: #111;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+}
+
+/* ---- Phone scenes ---- */
+.pscene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  overflow: hidden;
+}
+.pscene.active { opacity: 1; }
+
+/* ---- Progress dots ---- */
+.dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  transition: all 0.3s ease;
+}
+.dot.active {
+  width: 22px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+/* ---- Progress bar ---- */
+.pbar-track {
+  width: 375px; height: 2px;
+  background: #1a1a1a;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.pbar-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 1px;
+  transition: width linear;
+}
+
+/* ---- Hint ---- */
+.hint {
+  position: fixed;
+  bottom: 28px; right: 36px;
+  color: #333;
+  font-size: 11px;
+  font-weight: 500;
+  transition: opacity 0.5s;
+}
+.hint.fade { opacity: 0; }
+
+/* ---- End screen ---- */
+.end {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s;
+  cursor: default;
+}
+.end.visible { opacity: 1; }
+
+/* ---- Keyframes ---- */
+@keyframes calPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5); }
+  60% { box-shadow: 0 0 0 10px rgba(249,115,22,0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes notifIn {
+  from { opacity: 0; transform: translateY(-110%) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ripple {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.55; }
+  100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.08); }
+  50%       { box-shadow: 0 0 22px 6px rgba(255,255,255,0.18); }
+}
+@keyframes bounceIn {
+  0%   { transform: scale(0.25); opacity: 0; }
+  55%  { transform: scale(1.08); opacity: 1; }
+  75%  { transform: scale(0.96); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes drawCheck {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes dot1 { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+@keyframes dot2 { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+@keyframes dot3 { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     STAGE
+     ========================================================= -->
+<div class=&quot;stage&quot; id=&quot;stage&quot;>
+
+  <!-- Caption -->
+  <div class=&quot;caption&quot;>
+    <div class=&quot;step-label&quot; id=&quot;step-label&quot;>STEP 1 / 6</div>
+    <div class=&quot;caption-title&quot; id=&quot;cap-title&quot;></div>
+    <div class=&quot;caption-sub&quot; id=&quot;cap-sub&quot;></div>
+  </div>
+
+  <!-- Phone frame -->
+  <div class=&quot;phone-frame&quot; id=&quot;phone&quot;>
+    <div class=&quot;notch&quot;></div>
+
+    <!-- ====== SCENE 1: Google Calendar ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc1&quot; style=&quot;background:#fff; padding-top:34px;&quot;>
+      <div style=&quot;display:flex;justify-content:space-between;padding:4px 24px;font-size:12px;font-weight:600;color:#111&quot;>
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <!-- Header -->
+      <div style=&quot;padding:6px 16px 6px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;&quot;>
+        <div style=&quot;display:flex;align-items:center;gap:8px;&quot;>
+          <svg style=&quot;width:20px;height:20px;color:#aaa&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;><path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M4 6h16M4 12h16M4 18h16&quot;/></svg>
+          <span style=&quot;font-size:17px;font-weight:500;color:#202124&quot;>2月18日（水）</span>
+        </div>
+        <div style=&quot;width:30px;height:30px;border-radius:50%;background:#4285F4;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700&quot;>近</div>
+      </div>
+      <!-- Timeline -->
+      <div style=&quot;padding:8px 12px 0;overflow:hidden;height:680px;&quot;>
+        <!-- 9:00 -->
+        <div style=&quot;display:flex;gap:6px;margin-bottom:0;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>9:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;position:relative;&quot;>
+            <div style=&quot;position:absolute;inset:4px 2px;background:#EFF6FF;border-left:3px solid #3B82F6;border-radius:6px;padding:4px 8px;&quot;>
+              <div style=&quot;font-size:11px;font-weight:600;color:#1D4ED8&quot;>週次定例</div>
+              <div style=&quot;font-size:10px;color:#3B82F6&quot;>Google Meet</div>
+            </div>
+          </div>
+        </div>
+        <!-- 10:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>10:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;&quot;></div>
+        </div>
+        <!-- 11:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>11:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;&quot;></div>
+        </div>
+        <!-- 12:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>12:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;position:relative;&quot;>
+            <div style=&quot;position:absolute;inset:4px 2px;background:#F9FAFB;border-left:3px solid #9CA3AF;border-radius:6px;padding:4px 8px;&quot;>
+              <div style=&quot;font-size:11px;font-weight:500;color:#6B7280&quot;>ランチ</div>
+            </div>
+          </div>
+        </div>
+        <!-- 13:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>13:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;&quot;></div>
+        </div>
+        <!-- 14:00 — KEY EVENT -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>14:00</div>
+          <div style=&quot;flex:1;height:90px;border-top:1px solid #f3f4f6;position:relative;&quot;>
+            <div id=&quot;cal-event&quot; style=&quot;position:absolute;inset:4px 2px;background:#FFF7ED;border-left:3px solid #F97316;border-radius:6px;padding:6px 8px;transition:box-shadow .3s;&quot;>
+              <div style=&quot;font-size:11px;font-weight:700;color:#9A3412&quot;>ABC商事 福岡支店 訪問</div>
+              <div style=&quot;font-size:10px;color:#C2410C;margin-top:3px&quot;>📍 福岡市中央区天神1-1-1</div>
+              <div style=&quot;font-size:10px;color:#EA580C;margin-top:2px&quot;>田中部長、佐藤課長</div>
+            </div>
+          </div>
+        </div>
+        <!-- 16:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>16:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;&quot;></div>
+        </div>
+        <!-- 17:00 -->
+        <div style=&quot;display:flex;gap:6px;&quot;>
+          <div style=&quot;width:38px;text-align:right;font-size:10px;color:#9CA3AF;padding-top:2px;flex-shrink:0&quot;>17:00</div>
+          <div style=&quot;flex:1;height:55px;border-top:1px solid #f3f4f6;position:relative;&quot;>
+            <div style=&quot;position:absolute;inset:4px 2px;background:#F0FDF4;border-left:3px solid #22C55E;border-radius:6px;padding:4px 8px;&quot;>
+              <div style=&quot;font-size:11px;font-weight:500;color:#166534&quot;>プロダクトレビュー</div>
+              <div style=&quot;font-size:10px;color:#22C55E&quot;>Google Meet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SCENE 2: AI Detection ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc2&quot; style=&quot;background:#0a0a12; padding-top:34px;&quot;>
+      <div style=&quot;display:flex;justify-content:space-between;padding:4px 24px;font-size:12px;font-weight:600;color:#fff&quot;>
+        <span>9:41</span><span>●●●</span>
+      </div>
+      <div style=&quot;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 28px;height:700px;gap:0;&quot;>
+        <!-- Icon -->
+        <div style=&quot;width:68px;height:68px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:28px;&quot;>
+          <svg style=&quot;width:34px;height:34px;color:rgba(255,255,255,0.65)&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;>
+            <path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;1.5&quot; d=&quot;M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z&quot;/>
+          </svg>
+        </div>
+        <!-- Steps -->
+        <div style=&quot;width:100%;&quot;>
+          <!-- Step A -->
+          <div id=&quot;ai-a&quot; style=&quot;opacity:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:10px;animation:fadeUp .5s ease .3s forwards;&quot;>
+            <span style=&quot;font-size:18px;line-height:1&quot;>🔍</span>
+            <div style=&quot;flex:1&quot;>
+              <div style=&quot;font-size:12px;font-weight:600;color:#ddd&quot;>場所を解析</div>
+              <div style=&quot;font-size:10px;color:#555;margin-top:2px&quot;>「福岡市中央区天神」を検知</div>
+            </div>
+            <div style=&quot;width:18px;height:18px;border-radius:50%;background:#22c55e;flex-shrink:0;display:flex;align-items:center;justify-content:center;&quot;>
+              <svg style=&quot;width:11px;height:11px&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M5 13l4 4L19 7&quot;/></svg>
+            </div>
+          </div>
+          <!-- Step B -->
+          <div id=&quot;ai-b&quot; style=&quot;opacity:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:10px;animation:fadeUp .5s ease 1s forwards;&quot;>
+            <span style=&quot;font-size:18px;line-height:1&quot;>✈️</span>
+            <div style=&quot;flex:1&quot;>
+              <div style=&quot;font-size:12px;font-weight:600;color:#ddd&quot;>出張を検知</div>
+              <div style=&quot;font-size:10px;color:#555;margin-top:2px&quot;>羽田→福岡の移動が必要と判断</div>
+            </div>
+            <div style=&quot;width:18px;height:18px;border-radius:50%;background:#22c55e;flex-shrink:0;display:flex;align-items:center;justify-content:center;&quot;>
+              <svg style=&quot;width:11px;height:11px&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M5 13l4 4L19 7&quot;/></svg>
+            </div>
+          </div>
+          <!-- Step C -->
+          <div id=&quot;ai-c&quot; style=&quot;opacity:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:10px;animation:fadeUp .5s ease 1.7s forwards;&quot;>
+            <span style=&quot;font-size:18px;line-height:1&quot;>📋</span>
+            <div style=&quot;flex:1&quot;>
+              <div style=&quot;font-size:12px;font-weight:600;color:#ddd&quot;>プランを組み立て中</div>
+              <div style=&quot;font-size:10px;color:#555;margin-top:2px&quot;>最適便・タクシー・マイル計算</div>
+            </div>
+            <!-- Spinning loader -->
+            <div id=&quot;ai-spin&quot; style=&quot;width:18px;height:18px;border-radius:50%;border:2px solid #333;border-top-color:#888;animation:spin .7s linear infinite;flex-shrink:0;&quot;></div>
+          </div>
+          <!-- Typing dots -->
+          <div id=&quot;ai-dots&quot; style=&quot;opacity:0;text-align:center;margin-top:8px;animation:fadeUp .4s ease 2.2s forwards;&quot;>
+            <span style=&quot;display:inline-block;width:7px;height:7px;border-radius:50%;background:#444;margin:0 3px;animation:dot1 1.2s .0s infinite;&quot;></span>
+            <span style=&quot;display:inline-block;width:7px;height:7px;border-radius:50%;background:#444;margin:0 3px;animation:dot2 1.2s .2s infinite;&quot;></span>
+            <span style=&quot;display:inline-block;width:7px;height:7px;border-radius:50%;background:#444;margin:0 3px;animation:dot3 1.2s .4s infinite;&quot;></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SCENE 3: Lock Screen + Push Notification ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc3&quot; style=&quot;padding-top:34px;&quot;>
+      <!-- Wallpaper -->
+      <div style=&quot;position:absolute;inset:0;background:linear-gradient(155deg,#10102a 0%,#1a1a38 45%,#0a0a14 100%);&quot;></div>
+      <!-- Status -->
+      <div style=&quot;position:relative;z-index:10;display:flex;justify-content:space-between;padding:4px 24px;font-size:12px;font-weight:600;color:#fff&quot;>
+        <span>9:42</span><span>●●●</span>
+      </div>
+      <!-- Big clock -->
+      <div style=&quot;position:relative;z-index:10;text-align:center;padding:28px 0 32px;&quot;>
+        <div style=&quot;font-size:70px;font-weight:200;color:#fff;letter-spacing:-3px;line-height:1&quot;>9:42</div>
+        <div style=&quot;font-size:14px;color:rgba(255,255,255,0.5);margin-top:6px&quot;>2026年2月18日 水曜日</div>
+      </div>
+      <!-- Push notification -->
+      <div id=&quot;push-notif&quot; style=&quot;position:relative;z-index:10;margin:0 12px;opacity:0;animation:notifIn .55s cubic-bezier(.16,1,.3,1) .9s forwards;&quot;>
+        <div style=&quot;background:rgba(238,238,242,0.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:18px;padding:14px 16px;box-shadow:0 10px 40px rgba(0,0,0,.4);&quot;>
+          <div style=&quot;display:flex;align-items:flex-start;gap:12px;&quot;>
+            <div style=&quot;width:42px;height:42px;background:#111;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;&quot;>
+              <span style=&quot;color:#fff;font-size:10px;font-weight:900&quot;>UP</span>
+            </div>
+            <div style=&quot;flex:1;min-width:0;&quot;>
+              <div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;&quot;>
+                <span style=&quot;font-size:12px;font-weight:600;color:#111&quot;>UPSIDER</span>
+                <span style=&quot;font-size:11px;color:#aaa&quot;>今</span>
+              </div>
+              <div style=&quot;font-size:14px;font-weight:700;color:#111;margin-bottom:3px&quot;>福岡出張の準備、整いました</div>
+              <div style=&quot;font-size:12px;color:#555;margin-bottom:8px&quot;>JAL313 + タクシー ¥68,420</div>
+              <div style=&quot;display:inline-flex;align-items:center;gap:4px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 10px;&quot;>
+                <span style=&quot;font-size:11px;font-weight:700;color:#166534&quot;>規定内</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Lock screen app icons (faint) -->
+      <div style=&quot;position:absolute;bottom:72px;left:0;right:0;display:flex;justify-content:center;gap:14px;opacity:0.15;&quot;>
+        <div style=&quot;width:54px;height:54px;background:#22c55e;border-radius:14px;&quot;></div>
+        <div style=&quot;width:54px;height:54px;background:#3b82f6;border-radius:14px;&quot;></div>
+        <div style=&quot;width:54px;height:54px;background:#7c3aed;border-radius:14px;&quot;></div>
+        <div style=&quot;width:54px;height:54px;background:#1a1a1a;border:1px solid #333;border-radius:14px;display:flex;align-items:center;justify-content:center;&quot;>
+          <span style=&quot;color:#fff;font-size:8px;font-weight:900&quot;>UP</span>
+        </div>
+      </div>
+      <!-- Home bar -->
+      <div style=&quot;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:120px;height:4px;background:rgba(255,255,255,0.25);border-radius:2px;&quot;></div>
+    </div>
+
+    <!-- ====== SCENE 4: App Detail ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc4&quot; style=&quot;background:#f5f5f7; padding-top:34px;&quot;>
+      <!-- App header -->
+      <div style=&quot;background:#fff;border-bottom:1px solid #e8e8e8;&quot;>
+        <div style=&quot;display:flex;justify-content:space-between;padding:2px 20px;font-size:12px;color:#999&quot;>
+          <span>9:42</span><span>●●●</span>
+        </div>
+        <div style=&quot;padding:8px 16px 12px;display:flex;align-items:center;gap:10px;&quot;>
+          <div style=&quot;width:7px;height:7px;border-radius:50%;background:#1a1a1a;flex-shrink:0;&quot;></div>
+          <div>
+            <div style=&quot;font-size:16px;font-weight:800;color:#1a1a1a&quot;>福岡出張プラン</div>
+            <div style=&quot;font-size:11px;color:#999&quot;>2/18（水）ABC商事 福岡支店</div>
+          </div>
+        </div>
+      </div>
+      <!-- Scrollable content -->
+      <div style=&quot;overflow:hidden;height:620px;padding:12px;&quot;>
+        <!-- AI reason -->
+        <div style=&quot;background:#1a1a1a;border-radius:14px;padding:14px;margin-bottom:10px;&quot;>
+          <div style=&quot;display:flex;align-items:flex-start;gap:8px;&quot;>
+            <svg style=&quot;width:14px;height:14px;color:rgba(255,255,255,.55);flex-shrink:0;margin-top:2px&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;><path stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-width=&quot;2&quot; d=&quot;M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z&quot;/></svg>
+            <p style=&quot;font-size:11px;color:rgba(255,255,255,.7);line-height:1.6&quot;>14時の会議に間に合う便（JAL313 11:25着）。昼食の余裕も確保。往復<strong style=&quot;color:#fbbf24&quot;>1,476マイル</strong>獲得。</p>
+          </div>
+        </div>
+        <!-- Total -->
+        <div style=&quot;background:#fff;border-radius:14px;padding:12px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;>
+          <div style=&quot;display:flex;align-items:center;justify-content:space-between;&quot;>
+            <div>
+              <div style=&quot;font-size:10px;color:#aaa;margin-bottom:2px&quot;>合計（税込）</div>
+              <div style=&quot;font-size:26px;font-weight:900;color:#1a1a1a&quot;>¥68,420</div>
+            </div>
+            <div style=&quot;text-align:right;&quot;>
+              <div style=&quot;display:inline-block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:#166534;margin-bottom:5px&quot;>規定内</div>
+              <div style=&quot;font-size:12px;color:#f59e0b;font-weight:600&quot;>+1,476 JALマイル</div>
+            </div>
+          </div>
+        </div>
+        <!-- Flight -->
+        <div style=&quot;background:#fff;border-radius:14px;overflow:hidden;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;>
+          <div style=&quot;padding:10px 14px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:8px;&quot;>
+            <span style=&quot;font-size:15px&quot;>✈️</span>
+            <span style=&quot;font-size:12px;font-weight:700;color:#1a1a1a&quot;>フライト</span>
+            <span style=&quot;font-size:11px;color:#ccc;margin-left:auto&quot;>JAL</span>
+          </div>
+          <!-- Outbound -->
+          <div style=&quot;padding:10px 14px;border-bottom:1px solid #fafafa;&quot;>
+            <div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;&quot;>
+              <span style=&quot;font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:2px 8px;border-radius:4px;font-weight:600&quot;>往路</span>
+              <span style=&quot;font-size:11px;color:#aaa&quot;>¥23,610</span>
+            </div>
+            <div style=&quot;display:flex;align-items:center;gap:10px;&quot;>
+              <div style=&quot;text-align:center&quot;><div style=&quot;font-size:19px;font-weight:900;color:#1a1a1a&quot;>09:30</div><div style=&quot;font-size:10px;color:#aaa&quot;>羽田</div></div>
+              <div style=&quot;flex:1;display:flex;flex-direction:column;align-items:center;&quot;>
+                <div style=&quot;font-size:10px;color:#aaa;margin-bottom:4px&quot;>JAL313 · 1h55m</div>
+                <div style=&quot;display:flex;align-items:center;width:100%;&quot;>
+                  <div style=&quot;width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;&quot;></div>
+                  <div style=&quot;flex:1;height:1px;background:#bfdbfe;&quot;></div>
+                  <div style=&quot;width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;&quot;></div>
+                </div>
+              </div>
+              <div style=&quot;text-align:center&quot;><div style=&quot;font-size:19px;font-weight:900;color:#1a1a1a&quot;>11:25</div><div style=&quot;font-size:10px;color:#aaa&quot;>福岡</div></div>
+            </div>
+          </div>
+          <!-- Return -->
+          <div style=&quot;padding:10px 14px;&quot;>
+            <div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;&quot;>
+              <span style=&quot;font-size:10px;background:#F0FDF4;color:#166534;padding:2px 8px;border-radius:4px;font-weight:600&quot;>復路</span>
+              <span style=&quot;font-size:11px;color:#aaa&quot;>¥24,210</span>
+            </div>
+            <div style=&quot;display:flex;align-items:center;gap:10px;&quot;>
+              <div style=&quot;text-align:center&quot;><div style=&quot;font-size:19px;font-weight:900;color:#1a1a1a&quot;>18:00</div><div style=&quot;font-size:10px;color:#aaa&quot;>福岡</div></div>
+              <div style=&quot;flex:1;display:flex;flex-direction:column;align-items:center;&quot;>
+                <div style=&quot;font-size:10px;color:#aaa;margin-bottom:4px&quot;>JAL326 · 1h45m</div>
+                <div style=&quot;display:flex;align-items:center;width:100%;&quot;>
+                  <div style=&quot;width:5px;height:5px;border-radius:50%;background:#22c55e;flex-shrink:0;&quot;></div>
+                  <div style=&quot;flex:1;height:1px;background:#bbf7d0;&quot;></div>
+                  <div style=&quot;width:5px;height:5px;border-radius:50%;background:#22c55e;flex-shrink:0;&quot;></div>
+                </div>
+              </div>
+              <div style=&quot;text-align:center&quot;><div style=&quot;font-size:19px;font-weight:900;color:#1a1a1a&quot;>19:45</div><div style=&quot;font-size:10px;color:#aaa&quot;>羽田</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Taxi -->
+        <div style=&quot;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;>
+          <div style=&quot;padding:10px 14px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:8px;&quot;>
+            <span style=&quot;font-size:15px&quot;>🚕</span>
+            <span style=&quot;font-size:12px;font-weight:700;color:#1a1a1a&quot;>地上交通</span>
+          </div>
+          <div style=&quot;padding:10px 14px;font-size:11px;color:#666;line-height:1.9;&quot;>
+            <div>福岡空港 → ABC福岡ビル · タクシー · ¥3,200</div>
+            <div>ABC福岡ビル → 福岡空港 · タクシー · ¥3,200</div>
+          </div>
+        </div>
+      </div>
+      <!-- Fixed bottom -->
+      <div style=&quot;position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e5e5;padding:12px 16px 16px;&quot;>
+        <div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;&quot;>
+          <div style=&quot;font-size:18px;font-weight:800;color:#1a1a1a&quot;>¥68,420 <span style=&quot;font-size:11px;font-weight:500;color:#f59e0b&quot;>+1,476マイル</span></div>
+          <div style=&quot;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;color:#166534;&quot;>規定内</div>
+        </div>
+        <div style=&quot;background:#1a1a1a;color:#fff;border-radius:14px;padding:14px;text-align:center;font-size:14px;font-weight:700;&quot;>承認して予約する</div>
+        <div style=&quot;text-align:center;font-size:10px;color:#ccc;margin-top:6px&quot;>UPSIDERカードで決済 · 経費自動計上</div>
+      </div>
+    </div>
+
+    <!-- ====== SCENE 5: One-tap Approve ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc5&quot; style=&quot;background:#f5f5f7; padding-top:34px;&quot;>
+      <!-- Same header -->
+      <div style=&quot;background:#fff;border-bottom:1px solid #e8e8e8;&quot;>
+        <div style=&quot;display:flex;justify-content:space-between;padding:2px 20px;font-size:12px;color:#999&quot;>
+          <span>9:42</span><span>●●●</span>
+        </div>
+        <div style=&quot;padding:8px 16px 12px;display:flex;align-items:center;gap:10px;&quot;>
+          <div style=&quot;width:7px;height:7px;border-radius:50%;background:#1a1a1a;flex-shrink:0;&quot;></div>
+          <div>
+            <div style=&quot;font-size:16px;font-weight:800;color:#1a1a1a&quot;>福岡出張プラン</div>
+            <div style=&quot;font-size:11px;color:#999&quot;>2/18（水）ABC商事 福岡支店</div>
+          </div>
+        </div>
+      </div>
+      <!-- Content (slightly dimmed to focus on button) -->
+      <div style=&quot;height:574px;overflow:hidden;padding:12px;opacity:0.35;filter:blur(0.5px);&quot;>
+        <div style=&quot;background:#1a1a1a;border-radius:14px;height:52px;margin-bottom:10px;&quot;></div>
+        <div style=&quot;background:#fff;border-radius:14px;height:72px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;></div>
+        <div style=&quot;background:#fff;border-radius:14px;height:148px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;></div>
+        <div style=&quot;background:#fff;border-radius:14px;height:68px;box-shadow:0 1px 4px rgba(0,0,0,.07);&quot;></div>
+      </div>
+      <!-- Fixed bottom — glowing button + tap ripple -->
+      <div style=&quot;position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e5e5;padding:12px 16px 16px;&quot;>
+        <div style=&quot;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;&quot;>
+          <div style=&quot;font-size:18px;font-weight:800;color:#1a1a1a&quot;>¥68,420 <span style=&quot;font-size:11px;font-weight:500;color:#f59e0b&quot;>+1,476マイル</span></div>
+          <div style=&quot;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;color:#166534;&quot;>規定内</div>
+        </div>
+        <div style=&quot;position:relative;border-radius:14px;overflow:hidden;&quot;>
+          <div id=&quot;sc5-btn&quot; style=&quot;background:#1a1a1a;color:#fff;border-radius:14px;padding:14px;text-align:center;font-size:14px;font-weight:700;animation:glow 1.6s ease-in-out infinite;&quot;>
+            承認して予約する
+          </div>
+          <!-- Tap ripple -->
+          <div id=&quot;sc5-ripple&quot; style=&quot;position:absolute;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.45);top:50%;left:50%;transform:translate(-50%,-50%) scale(0);opacity:0;animation:ripple .65s ease-out .5s forwards;pointer-events:none;&quot;></div>
+        </div>
+        <div style=&quot;text-align:center;font-size:10px;color:#ccc;margin-top:6px&quot;>UPSIDERカードで決済 · 経費自動計上</div>
+      </div>
+    </div>
+
+    <!-- ====== SCENE 6: Complete ====== -->
+    <div class=&quot;pscene&quot; id=&quot;sc6&quot; style=&quot;background:#fff; padding-top:34px;&quot;>
+      <div style=&quot;display:flex;justify-content:space-between;padding:4px 24px;font-size:12px;color:#ccc&quot;>
+        <span>9:42</span><span>●●●</span>
+      </div>
+      <div style=&quot;display:flex;flex-direction:column;align-items:center;padding:16px 20px;&quot;>
+        <!-- Check circle -->
+        <div style=&quot;width:88px;height:88px;border-radius:50%;background:#f0fdf4;display:flex;align-items:center;justify-content:center;margin-bottom:14px;animation:bounceIn .65s ease .1s both;&quot;>
+          <svg style=&quot;width:44px;height:44px&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-dasharray=&quot;100&quot; stroke-dashoffset=&quot;100&quot;>
+            <path d=&quot;M5 13l4 4L19 7&quot; style=&quot;animation:drawCheck .55s ease .7s forwards;stroke-dashoffset:100;&quot;/>
+          </svg>
+        </div>
+        <div style=&quot;font-size:20px;font-weight:900;color:#1a1a1a;margin-bottom:3px&quot;>予約が完了しました</div>
+        <div style=&quot;font-size:13px;color:#aaa;margin-bottom:16px&quot;>操作時間: <strong style=&quot;color:#1a1a1a&quot;>5秒</strong></div>
+        <!-- Booking summary -->
+        <div style=&quot;width:100%;background:#f9f9f9;border-radius:16px;padding:14px 16px;margin-bottom:12px;&quot;>
+          <div style=&quot;font-size:10px;font-weight:600;color:#aaa;margin-bottom:8px&quot;>✈️ フライト確認番号</div>
+          <div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;&quot;>
+            <div>
+              <div style=&quot;font-size:13px;font-weight:600;color:#1a1a1a&quot;>JAL313 羽田→福岡</div>
+              <div style=&quot;font-size:10px;color:#aaa&quot;>09:30→11:25</div>
+            </div>
+            <div style=&quot;font-size:14px;font-weight:900;font-family:monospace;color:#1a1a1a&quot;>ABCDEF</div>
+          </div>
+          <div style=&quot;display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #eee;margin-bottom:12px;&quot;>
+            <div>
+              <div style=&quot;font-size:13px;font-weight:600;color:#1a1a1a&quot;>JAL326 福岡→羽田</div>
+              <div style=&quot;font-size:10px;color:#aaa&quot;>18:00→19:45</div>
+            </div>
+            <div style=&quot;font-size:14px;font-weight:900;font-family:monospace;color:#1a1a1a&quot;>GHIJKL</div>
+          </div>
+          <div style=&quot;display:flex;justify-content:space-between;&quot;>
+            <div><div style=&quot;font-size:10px;color:#aaa&quot;>合計</div><div style=&quot;font-size:22px;font-weight:900;color:#1a1a1a&quot;>¥68,420</div></div>
+            <div style=&quot;text-align:right&quot;><div style=&quot;font-size:10px;color:#aaa&quot;>マイル</div><div style=&quot;font-size:22px;font-weight:900;color:#f59e0b&quot;>+1,476</div></div>
+          </div>
+        </div>
+        <!-- Auto actions -->
+        <div style=&quot;width:100%;display:flex;flex-direction:column;gap:8px;&quot;>
+          <div style=&quot;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f0fdf4;border-radius:12px;animation:fadeUp .4s ease .6s both;&quot;>
+            <div style=&quot;width:20px;height:20px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;flex-shrink:0;&quot;>
+              <svg style=&quot;width:12px;height:12px&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.5&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M5 13l4 4L19 7&quot;/></svg>
+            </div>
+            <div>
+              <div style=&quot;font-size:12px;font-weight:700;color:#166534&quot;>UPSIDERカードで決済済み</div>
+              <div style=&quot;font-size:10px;color:#86efac&quot;>領収書不要 · 自動反映</div>
+            </div>
+          </div>
+          <div style=&quot;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f0fdf4;border-radius:12px;animation:fadeUp .4s ease .9s both;&quot;>
+            <div style=&quot;width:20px;height:20px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;flex-shrink:0;&quot;>
+              <svg style=&quot;width:12px;height:12px&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.5&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M5 13l4 4L19 7&quot;/></svg>
+            </div>
+            <div>
+              <div style=&quot;font-size:12px;font-weight:700;color:#166534&quot;>経費を自動計上</div>
+              <div style=&quot;font-size:10px;color:#86efac&quot;>旅費交通費 · ABC商事</div>
+            </div>
+          </div>
+          <div style=&quot;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#eff6ff;border-radius:12px;animation:fadeUp .4s ease 1.2s both;&quot;>
+            <div style=&quot;width:20px;height:20px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;flex-shrink:0;&quot;>
+              <svg style=&quot;width:12px;height:12px&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.5&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M5 13l4 4L19 7&quot;/></svg>
+            </div>
+            <div>
+              <div style=&quot;font-size:12px;font-weight:700;color:#1D4ED8&quot;>カレンダーに反映済み</div>
+              <div style=&quot;font-size:10px;color:#93c5fd&quot;>フライト · タクシーを自動追加</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phone-frame -->
+
+  <!-- Dots + progress bar -->
+  <div class=&quot;dots&quot; id=&quot;dots&quot;>
+    <div class=&quot;dot active&quot;></div>
+    <div class=&quot;dot&quot;></div>
+    <div class=&quot;dot&quot;></div>
+    <div class=&quot;dot&quot;></div>
+    <div class=&quot;dot&quot;></div>
+    <div class=&quot;dot&quot;></div>
+  </div>
+  <div class=&quot;pbar-track&quot;><div class=&quot;pbar-fill&quot; id=&quot;pbar&quot; style=&quot;width:0%&quot;></div></div>
+
+</div><!-- /stage -->
+
+<!-- End screen -->
+<div class=&quot;end&quot; id=&quot;end&quot;>
+  <div style=&quot;text-align:center;max-width:500px;padding:40px 24px;&quot;>
+    <div style=&quot;display:inline-block;background:#111;border:1px solid #2a2a2a;border-radius:10px;padding:5px 14px;margin-bottom:24px;&quot;>
+      <span style=&quot;color:#fff;font-weight:900;font-size:14px;letter-spacing:.06em&quot;>UPSIDER</span>
+      <span style=&quot;color:#444;font-size:12px;margin-left:8px&quot;>出張エージェント</span>
+    </div>
+    <h1 style=&quot;font-size:30px;font-weight:900;color:#fff;margin-bottom:12px;line-height:1.35&quot;>カレンダーに入れるだけ。<br>あとはAIが全部やる。</h1>
+    <p style=&quot;font-size:14px;color:#555;margin-bottom:36px&quot;>タップ 1回 · 操作 5秒 · 経費精算ゼロ</p>
+    <button onclick=&quot;restart()&quot; style=&quot;background:#fff;color:#1a1a1a;border:none;border-radius:14px;padding:14px 36px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;transition:opacity .2s;&quot; onmouseenter=&quot;this.style.opacity='.8'&quot; onmouseleave=&quot;this.style.opacity='1'&quot;>
+      ↺ もう一度見る
+    </button>
+  </div>
+</div>
+
+<!-- Hint -->
+<div class=&quot;hint&quot; id=&quot;hint&quot;>タップして次へ →</div>
+
+<script>
+const SCENES = [
+  {
+    id: 'sc1',
+    label: 'STEP 1 / 6',
+    title: 'カレンダーに予定を入れるだけ',
+    sub: '「出張」と書く必要もない',
+    dur: 2000,
+    enter() {
+      setTimeout(() => {
+        const el = document.getElementById('cal-event');
+        if (el) el.style.animation = 'calPulse 1.4s ease-in-out infinite';
+      }, 800);
+    }
+  },
+  {
+    id: 'sc2',
+    label: 'STEP 2 / 6',
+    title: 'AIが自動で検知・手配',
+    sub: '場所を推論し、60秒以内にプランを組立',
+    dur: 2000,
+    enter() {}
+  },
+  {
+    id: 'sc3',
+    label: 'STEP 3 / 6',
+    title: 'スマホに通知が届く',
+    sub: 'AIが手配した内容がサマリーで表示',
+    dur: 2000,
+    enter() {}
+  },
+  {
+    id: 'sc4',
+    label: 'STEP 4 / 6',
+    title: '全部準備されている',
+    sub: 'フライト・タクシー・タイムライン — 確認するだけ',
+    dur: 2000,
+    enter() {}
+  },
+  {
+    id: 'sc5',
+    label: 'STEP 5 / 6',
+    title: 'ワンタップで承認',
+    sub: '5秒で出張手配が完了する',
+    dur: 2000,
+    enter() {}
+  },
+  {
+    id: 'sc6',
+    label: 'STEP 6 / 6',
+    title: '予約・決済・経費まで全自動',
+    sub: '何もしなくていい',
+    dur: 2000,
+    enter() {}
+  }
+];
+
+let cur = 0;
+let timer = null;
+let busy = false;
+
+function showScene(i) {
+  if (i >= SCENES.length) { showEnd(); return; }
+  busy = true;
+  if (timer) clearTimeout(timer);
+
+  // Reset cal-event animation when re-entering scene 1
+  if (i === 0) {
+    const el = document.getElementById('cal-event');
+    if (el) el.style.animation = '';
+  }
+
+  // Hide all scenes
+  document.querySelectorAll('.pscene').forEach(s => s.classList.remove('active'));
+
+  // Update caption
+  const sc = SCENES[i];
+  document.getElementById('step-label').textContent = sc.label;
+  document.getElementById('cap-title').textContent = sc.title;
+  document.getElementById('cap-sub').textContent = sc.sub;
+
+  // Update dots
+  document.querySelectorAll('#dots .dot').forEach((d, j) => {
+    d.classList.toggle('active', j === i);
+  });
+
+  // Reset progress bar
+  const bar = document.getElementById('pbar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+
+  // Show new scene
+  setTimeout(() => {
+    const el = document.getElementById(sc.id);
+    if (el) el.classList.add('active');
+    sc.enter();
+    busy = false;
+
+    // Start progress bar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bar.style.transition = `width ${sc.dur}ms linear`;
+        bar.style.width = '100%';
+      });
+    });
+
+    // Auto advance
+    timer = setTimeout(() => advance(), sc.dur);
+  }, 60);
+}
+
+function advance() {
+  if (busy) return;
+  cur++;
+  if (cur >= SCENES.length) { showEnd(); return; }
+  showScene(cur);
+}
+
+function showEnd() {
+  if (timer) clearTimeout(timer);
+  document.getElementById('stage').style.display = 'none';
+  document.getElementById('hint').style.display = 'none';
+  const end = document.getElementById('end');
+  end.style.display = 'flex';
+  requestAnimationFrame(() => end.classList.add('visible'));
+}
+
+function restart() {
+  cur = 0;
+  const end = document.getElementById('end');
+  end.classList.remove('visible');
+  setTimeout(() => {
+    end.style.display = 'none';
+    document.getElementById('stage').style.display = 'flex';
+    document.getElementById('hint').style.display = 'block';
+    showScene(0);
+  }, 400);
+}
+
+// Click handler
+document.addEventListener('click', e => {
+  if (e.target.closest('.end')) return;
+  advance();
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (['Space', 'ArrowRight', 'Enter'].includes(e.code)) {
+    e.preventDefault();
+    advance();
+  }
+});
+
+// Init
+showScene(0);
+
+// Fade hint after 3s
+setTimeout(() => document.getElementById('hint').classList.add('fade'), 3000);
+</script>
+</body>
+</html>
+" style="width:100%;height:100%;border:none;display:block;" scrolling="no" title="AGT 出張自動予約デモ"></iframe>
+    </div>
+    <div class="concrete-text fade">
+      <div class="concrete-num">03</div>
+      <div class="section-tag navy">WITH AI</div>
+      <h3 class="concrete-title">AIによる出張の完全自動予約（AGT）
+        <span>「指示」すら不要な、自動完了</span>
+      </h3>
+      <ul class="concrete-list">
+        <li>
+          <strong>「指示」すら不要な、自動完了</strong>
+          AIがカレンダーから予定を読み取り、最適なJAL便を自動予約。予約から決済までを裏側ですべて完了させます。秘書やコンシェルジュを介する手間すら発生しません。
+        </li>
+        <li>
+          <strong>空港に行くだけで「終わっている」体験</strong>
+          当日は、空港へ向かうだけ。座席の確保からステータスの適用まで、すべてが「勝手に終わっている」状態を提供します。
+        </li>
+        <li>
+          <strong>みずほコネクテッドサービス標準付帯</strong>
+          資産30億円以上のオーナー限定。銀行の深層にあるクローズドな優待メニューや、非公開イベントへのアクセス権を付帯。
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ④ みずほコネクテッドサービス -->
+  <div class="concrete-item reverse" id="concrete-04">
+    <div class="concrete-photo">
+      <div class="s-photo-bg bg-mizuho-wealth" style="position:absolute;inset:0;"></div>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,0.42);"></div>
+    </div>
+    <div class="concrete-text fade">
+      <div class="concrete-num">04</div>
+      <div class="section-tag navy">WITH MIZUHO</div>
+      <h3 class="concrete-title">みずほコネクテッドサービス
+        <span>銀行の深層にある特権が、標準装備になる</span>
+      </h3>
+      <ul class="concrete-list">
+        <li>
+          <strong>金融特典</strong>
+          振込等の各種手数料優遇、定期預金・マネープラン金利優遇。証券手数料優遇、信託報酬割引、不販手数料優遇。
+        </li>
+        <li>
+          <strong>専属プライベートバンカーによるウェルスアドバイザーサービス</strong>
+          富裕層限定商品提案、株担ローン、一任運用。経営者の資産を、みずほの最上位チームが伴走管理します。
+        </li>
+        <li>
+          <strong>専用ラウンジ</strong>
+          みずほが用意するエクスクルーシブな専用ラウンジへのアクセス権。クローズドな優待メニューと非公開イベントへの優先招待。
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     CARD SPEC TABLE
+══════════════════════════════════════ -->
+<section class="s-spec" id="anc-spec">
+  <div class="spec-inner">
+    <span class="section-tag red">SPEC</span>
+    <h2 class="section-h2 dark fade">カード詳細</h2>
+    <div class="divider-line divider-red" style="display:block;margin:16px auto;"></div>
+    <p class="section-sub fade">カードの年会費・付帯サービス一覧</p>
+
+    <div class="spec-card-display fade fade-d1" style="justify-content:center;">
+      <div class="spec-card-col">
+        <div class="spec-card-visual">
+          <div class="core-card">
+            <div class="cc-shine"></div>
+            <div class="cc-top">
+              <div class="cc-chip"></div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+                <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL" style="width:28px;height:28px;filter:brightness(0) invert(1) opacity(0.85);">
+                <span class="cc-triple">JAL × UPSIDER × みずほ</span>
+              </div>
+            </div>
+            <div>
+              <div class="cc-card-subname" style="font-size:11px;letter-spacing:0.32em;color:rgba(255,255,255,0.72);">JAL×UPSIDER×MIZUHO</div>
+            </div>
+            <div class="cc-bottom">
+              <div class="cc-holder-text">CORPORATE CARD</div>
+              <div class="cc-net">
+                <div class="cc-dot cc-dot1"></div>
+                <div class="cc-dot cc-dot2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="spec-card-name">JAL×UPSIDER×MIZUHO</div>
+        <div class="spec-card-sub">法人決済用カード</div>
+        <span class="spec-card-tag">審査制</span>
+      </div>
+    </div>
+
+    <table class="fade">
+      <thead>
+        <tr>
+          <th scope="col">項目</th>
+          <th scope="col">JAL×UPSIDER×MIZUHO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">本会員年会費</th>
+          <td>1,000,000円（税別）</td>
+        </tr>
+        <tr>
+          <th scope="row">申し込み資格</th>
+          <td>審査制</td>
+        </tr>
+        <tr>
+          <th scope="row">ショッピングマイル還元率</th>
+          <td>1.50%</td>
+        </tr>
+        <tr>
+          <th scope="row">JAL アドオンマイル（JAL便）</th>
+          <td>+1.00%</td>
+        </tr>
+        <tr>
+          <th scope="row">Life Status ポイント（LSP）</th>
+          <td>同左</td>
+        </tr>
+        <tr>
+          <th scope="row">FLY ON ステイタス</th>
+          <td>同左</td>
+        </tr>
+        <tr>
+          <th scope="row">与信限度額</th>
+          <td>最大10億円（UPSIDER独自審査）</td>
+        </tr>
+        <tr>
+          <th scope="row">AI自動購買エージェント</th>
+          <td><span class="chk-navy">●</span></td>
+        </tr>
+        <tr>
+          <th scope="row">プライオリティ・パス</th>
+          <td><span class="chk-red">●</span> 無制限</td>
+        </tr>
+        <tr>
+          <th scope="row">コンシェルジュ（24H LINE）</th>
+          <td><span class="chk-red">●</span></td>
+        </tr>
+        <tr>
+          <th scope="row">サクララウンジ</th>
+          <td>JMBサファイア相当</td>
+        </tr>
+        <tr>
+          <th scope="row">国際線機内Wi-Fi</th>
+          <td>年間5回</td>
+        </tr>
+        <tr>
+          <th scope="row">ラグジュアリーホテル優待</th>
+          <td><span class="chk-red">●</span></td>
+        </tr>
+        <tr>
+          <th scope="row">みずほコネクテッドサービス</th>
+          <td><span class="chk-navy">●</span></td>
+        </tr>
+        <tr>
+          <th scope="row">海外旅行傷害保険</th>
+          <td>最高1億円（自動付帯）</td>
+        </tr>
+        <tr>
+          <th scope="row">クラウド会計連携</th>
+          <td><span class="chk-navy">●</span> 弥生・MF等</td>
+        </tr>
+        <tr>
+          <th scope="row">国際ブランド</th>
+          <td>Mastercard（Gold Card相当）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ul class="spec-notes fade">
+      <li>本カードは審査制です。お申し込みはお受けできません。</li>
+      <li>年会費は税別表記です。消費税は別途申し受けます。</li>
+      <li>与信限度額はUPSIDER独自の審査ロジック（現預金推移・決済データのリアルタイム解析）により決定されます。</li>
+      <li>AI自動購買エージェントのご利用にはUPSIDERアプリへの連携が必要です。</li>
+      <li>みずほコネクテッドサービスのご利用にはみずほFGとの別途契約が必要です。</li>
+      <li>記載の特典・サービス内容は変更となる場合があります。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     INVITATION / APPLY
+══════════════════════════════════════ -->
+<section class="s-invitation" id="anc-apply">
+  <div class="invitation-inner">
+    <div class="invitation-card-display fade">
+      <div style="display:flex;justify-content:center;">
+        <div class="core-card" style="transform:perspective(900px) rotateY(-6deg) rotateX(4deg);">
+          <div class="cc-shine"></div>
+          <div class="cc-top">
+            <div class="cc-chip"></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL" style="width:28px;height:28px;filter:brightness(0) invert(1) opacity(0.85);">
+              <span class="cc-triple">JAL × UPSIDER × みずほ</span>
+            </div>
+          </div>
+          <div>
+            <div class="cc-card-subname" style="font-size:11px;letter-spacing:0.32em;color:rgba(255,255,255,0.72);">JAL×UPSIDER×MIZUHO</div>
+          </div>
+          <div class="cc-bottom">
+            <div class="cc-holder-text">CORPORATE CARD</div>
+            <div class="cc-net">
+              <div class="cc-dot cc-dot1"></div>
+              <div class="cc-dot cc-dot2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span class="section-tag red fade">APPLY</span>
+    <h2 class="invitation-h2 fade fade-d1">お申し込み</h2>
+
+    <div class="invitation-fee fade fade-d2">
+      <div class="invitation-fee-label">本会員 年会費（税別）</div>
+      <div class="invitation-fee-amount">¥1,000,000<span class="invitation-fee-unit"></span></div>
+      <div class="invitation-fee-note">審査制 — 審査通過後にお申し込みいただけます</div>
+    </div>
+
+    <div class="fade fade-d3" style="margin:40px auto 0;max-width:640px;display:flex;flex-direction:column;gap:16px;">
+      <a href="#" class="btn-apply-big" style="display:block;text-align:center;padding:20px 40px;">
+        招待コードをお持ちの方はこちら ›
+      </a>
+      <a href="#" class="btn-inquiry" style="display:block;text-align:center;padding:18px 40px;">
+        招待コードをお持ちでなく、お申し込みをご希望の方はこちら ›
+      </a>
+    </div>
+
+    <p class="invitation-note fade">
+      ※ 本カードは審査制です。所定の審査基準を満たした方のみお申し込みいただけます。<br>
+      ※ 入会時または初回決済完了時に1,500 LSP（JGC入会資格）が即時付与されます。<br>
+      ※ 申し込みからJGC資格付与まで、みずほ×UPSIDERの連携により最短期間で完了する特急フローを適用します。<br>
+      ※ 年会費は入会月翌月のご請求となります。
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-logos">
+      <div class="footer-logo-item">
+        <img src="https://www.jal.co.jp/content/dam/sites/global/Y18/img/logo_jal.svg" alt="JAL">
+        <span>JAPAN AIRLINES</span>
+      </div>
+      <div class="footer-logo-item">
+        <span style="font-size:14px;color:#888;letter-spacing:0.05em;font-weight:300;">UPSIDER</span>
+      </div>
+      <div class="footer-logo-item">
+        <span style="font-size:14px;color:rgba(43,91,168,0.7);letter-spacing:0.05em;font-weight:300;">みずほフィナンシャルグループ</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">利用規約</a>
+        <a href="#">特定商取引法に基づく表記</a>
+        <a href="#">お問い合わせ</a>
+      </div>
+      <span>© JAPAN AIRLINES / UPSIDER / Mizuho Financial Group. All Rights Reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCROLL ANIMATION JS
+══════════════════════════════════════ -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
